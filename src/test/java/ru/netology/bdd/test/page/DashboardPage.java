@@ -8,12 +8,12 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class DashboardPage { //личный кабинет
-    //private SelenideElement heading = $("[data-test-id=dashboard]");
+
     // переменные класса приватные и, как правило, переменные страницы не показываем за класс (что в переменных объявлено используется только в методах этого класса) - принцип инкапсуляции
     private final String balanceStart = "баланс: ";
-    private final String balanceFinish = "р. ";
-    private final SelenideElement heading = $("[data-test-id=dashboard]");
-    private static final ElementsCollection cards = $$(".list__item div");
+    private final String balanceFinish = " р.";
+    private final SelenideElement heading = $x("//h2[@data-test-id = 'dashboard']");
+    private static final ElementsCollection cards = $$x("//li [@class = 'list__item'] //div");
 
     // проверка видимости элемента (заголовка), когда создается объект страницы
     public DashboardPage() {
@@ -22,14 +22,12 @@ public class DashboardPage { //личный кабинет
 
     // Метод возвращает баланс карты, внутри коллекции ElementsCollection cards ищет конкретную строку, получает ее текст, сохраняет его в переменную text и передает его методу extractBalance и возвращает в переменную int числовое значение баланса карты:
 
-
-
     public int getCardBalance(DataHelper.CardInfo cardInfo) { // передаем в метод информацию о карте
-        var text = cards.findBy(text(cardInfo.getCardNumber().substring(15))).getText(); //ищем по последним четырем знакам разряда номера карты
+        var text = cards.findBy(attribute("data-test-id", cardInfo.getTestId())).getText(); //ищем по последним четырем знакам разряда номера карты
         return extractBalance(text);
     }
-
-    /* метод ищет внутри коллекции ElementsCollection cards конкретную строку и нажимает на кнопку напротив карты:
+    /*
+    метод ищет внутри коллекции ElementsCollection cards конкретную строку и нажимает на кнопку напротив карты:
     public TransferPage selectCardToTransfer(DataHelper.CardInfo cardInfo){
         cards.findBy(text(cardInfo.getCardNumber().substring(15))).$("button").click();
         return new TransferPage();

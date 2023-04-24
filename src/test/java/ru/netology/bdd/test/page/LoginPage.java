@@ -2,13 +2,13 @@ package ru.netology.bdd.test.page;
 
 import ru.netology.bdd.test.data.DataHelper;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage {
     public VerificationPage validLogin(DataHelper.AuthInfo info) {
-        $("[data-test-id=login] input").setValue(info.getLogin());
-        $("[data-test-id=password] input").setValue(info.getPassword());
-        $("[data-test-id=action-login]").click();
+        $x("//span [@data-test-id = 'login'] //input").setValue(info.getLogin());
+        $x("//span [@data-test-id ='password'] // input").setValue(info.getPassword());
+        $x("//button [@data-test-id = 'action-login'] //span[@class = 'button__text']").click();
         return new VerificationPage();
     }
 

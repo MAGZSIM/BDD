@@ -31,7 +31,7 @@ public class DataHelper {
     }
 
     public static int generateInvalidAmount(int balance) {
-        return Math.abs(balance) + new Random().nextInt(10_000); // сумма гарантировано будет выходить за границы
+        return Math.abs(balance) + new Random().nextInt(10000); // сумма гарантировано будет выходить за границы
     }
 
 
@@ -51,6 +51,4 @@ public class DataHelper {
         String cardNumber;
         String testId;
     }
-
-
 }
